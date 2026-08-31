@@ -48,7 +48,9 @@
 
     @if ($slides->isEmpty() && !$editingId)
         <div class="bg-white rounded-xl border border-slate-200 p-12 text-center">
-            <p class="text-4xl mb-3" aria-hidden="true">🖼️</p>
+            <div class="flex justify-center mb-3">
+                <x-admin.icon name="photo" class="w-10 h-10 text-slate-300" />
+            </div>
             <h3 class="text-sm font-medium text-slate-900">Belum ada slide carousel</h3>
         </div>
     @else
