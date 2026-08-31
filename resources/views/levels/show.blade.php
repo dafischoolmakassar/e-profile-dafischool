@@ -111,7 +111,6 @@
         <!-- CTA Daftar -->
         <section class="max-w-6xl mx-auto px-4 mt-14 mb-16 text-center">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-950 px-6 py-12 sm:py-16 shadow-xl">
-                <span class="inline-block text-gold-300 text-3xl mb-3">✦</span>
                 <h2 class="font-display text-white text-xl sm:text-3xl font-bold mb-3">Tertarik Bergabung dengan Darul Fikri?</h2>
                 <p class="text-primary-100 mb-7 max-w-lg mx-auto">
                     Daftarkan putra-putri Anda sekarang di jenjang {{ $level->name }}.

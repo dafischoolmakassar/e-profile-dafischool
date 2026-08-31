@@ -15,9 +15,14 @@
                 @foreach ($slides as $slide)
                     <div class="swiper-slide relative bg-slate-900">
                         @if ($slide->image)
-                            <img src="{{ $slide->image }}" alt="{{ $slide->alt }}"
-                                 @if ($loop->first) fetchpriority="high" @else loading="lazy" @endif
-                                 class="relative w-full h-full object-cover">
+                            <picture class="block w-full h-full">
+                                @if ($slide->mobile_image)
+                                    <source media="(max-width: 767px)" srcset="{{ $slide->mobile_image }}">
+                                @endif
+                                <img src="{{ $slide->image }}" alt="{{ $slide->alt }}"
+                                     @if ($loop->first) fetchpriority="high" @else loading="lazy" @endif
+                                     class="relative w-full h-full object-cover">
+                            </picture>
                         @else
                             <x-image-placeholder :label="$slide->alt" class="w-full h-full" />
                         @endif
