@@ -10,6 +10,7 @@ class SchoolSettingSeeder extends Seeder
     public function run(): void
     {
         SchoolSetting::updateOrCreate(['id' => 1], [
+            'school_name' => config('school.school_name', 'SIT DARUL FIKRI MAKASSAR'),
             'phone' => config('school.phone'),
             'address' => config('school.address'),
             'email' => config('school.email'),
