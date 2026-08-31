@@ -28,6 +28,27 @@
         --swiper-pagination-color: #da8c16;
     }
 
+    /* Mobile: hide WA (hidden sm:inline-flex), move dots to WA's former spot — rata kanan.
+       Swiper pagination uses text-align:center + inline-block bullets, so we override
+       with text-align:right (not justify-content) and ensure !important to win over
+       swiper/css/pagination which loads as lazy chunk after app.css.
+       Gutters 16px (px-4) match top-bar container on mobile. */
+    @media (max-width: 639px) {
+        .hero-swiper .swiper-pagination.swiper-pagination-bullets,
+        .hero-swiper .swiper-pagination-horizontal.swiper-pagination-bullets,
+        .hero-swiper.swiper-horizontal > .swiper-pagination-bullets {
+            text-align: right !important;
+            display: block !important;
+            padding-right: 16px !important; /* = px-4 container gutter where WA was */
+            padding-left: 40% !important; /* avoid overlap with caption max-w left */
+            bottom: 20px !important;
+            --swiper-pagination-bottom: 20px !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+        }
+    }
+
     .testimonial-swiper {
         --swiper-pagination-color: #da8c16;
         --swiper-pagination-bullet-inactive-color: #cbd5e1;
@@ -133,10 +154,10 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    /* Fonts */
+    /* Fonts — Sora (tegas, geometric, kuat) untuk display/headings, Jakarta untuk body */
     --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
 
     /* Primary color (blue) */
     --color-primary-50: #f3f7fc;

@@ -5,6 +5,7 @@
 // school info from /admin/settings, which reads and writes App\Models\SchoolSetting
 // instead — this file does not affect the live site after that point.
 return [
+    'school_name' => env('SCHOOL_NAME', 'SIT DARUL FIKRI MAKASSAR'),
     'whatsapp_number' => env('SCHOOL_WHATSAPP_NUMBER', '6281234567890'),
     'phone' => env('SCHOOL_PHONE', '(0411) 000-000'),
     'email' => env('SCHOOL_EMAIL', 'info@darulfikri.sch.id'),

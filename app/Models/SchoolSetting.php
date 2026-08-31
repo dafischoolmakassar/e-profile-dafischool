@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class SchoolSetting extends Model
 {
     private const CURRENT_BINDING = 'school-setting.current';
+
+    public const DEFAULT_SCHOOL_NAME = 'SIT DARUL FIKRI MAKASSAR';
+
+    /** Short variant for very narrow viewports if needed. */
+    public const DEFAULT_SCHOOL_NAME_SHORT = 'SIT DARUL FIKRI MKS';
 
     protected $fillable = [
         'school_name',
@@ -20,6 +26,18 @@ class SchoolSetting extends Model
         'facebook_url',
         'youtube_url',
     ];
+
+    /**
+     * Always return a displayable name — falls back to the canonical default
+     * so the hero pill, footer, and <title> never render empty when the admin
+     * hasn't saved settings yet.
+     */
+    protected function schoolName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $value) => $value !== null && trim($value) !== '' ? $value : self::DEFAULT_SCHOOL_NAME,
+        );
+    }
 
     /**
      * Memoized per request/test via the container (not a static property),

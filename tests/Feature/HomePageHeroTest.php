@@ -50,7 +50,7 @@ class HomePageHeroTest extends TestCase
 
         $response->assertOk();
         $response->assertDontSee('id="hero-logo"', false);
-        $response->assertSee('Darul Fikri', false);
+        $response->assertSee(SchoolSetting::DEFAULT_SCHOOL_NAME, false);
     }
 
     public function test_does_not_show_headline_or_tagline_overlay(): void
