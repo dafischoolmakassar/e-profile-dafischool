@@ -17,9 +17,13 @@ new Swiper('.hero-swiper', {
     grabCursor: true,
     on: {
         slideChange(swiper) {
-            const counter = document.querySelector('.hero-counter-current');
-            if (counter) {
-                counter.textContent = String(swiper.realIndex + 1).padStart(2, '0');
+            // Re-trigger caption animation on slide change
+            const caption = swiper.slides[swiper.activeIndex].querySelector('.hero-caption');
+            if (caption) {
+                caption.style.animation = 'none';
+                // Trigger reflow to restart animation
+                void caption.offsetWidth;
+                caption.style.animation = '';
             }
         },
     },

@@ -28,15 +28,37 @@
         --swiper-pagination-color: #da8c16;
     }
 
+    .testimonial-swiper {
+        --swiper-pagination-color: #da8c16;
+        --swiper-pagination-bullet-inactive-color: #cbd5e1;
+        --swiper-pagination-bullet-inactive-opacity: 1;
+    }
+
     .swiper-pagination-bullet {
         width: 10px;
         height: 10px;
-        transition: width 250ms ease, border-radius 250ms ease;
+        transition: transform 250ms ease, background-color 250ms ease, opacity 250ms ease;
     }
 
     .swiper-pagination-bullet-active {
-        width: 26px;
-        border-radius: 9999px;
+        transform: scale(1.4);
+    }
+
+    /* Testimonial carousel: active card enlarges, side cards recede.
+       Scale is applied to the inner card (not the slide) to avoid
+       clashing with Swiper's own slide transforms. */
+    .testimonial-card {
+        transition: transform 400ms ease, opacity 400ms ease, box-shadow 400ms ease;
+    }
+
+    .swiper-slide .testimonial-card {
+        transform: scale(0.92);
+        opacity: 0.65;
+    }
+
+    .swiper-slide-active .testimonial-card {
+        transform: scale(1);
+        opacity: 1;
     }
 
     /* Soft shadow with gold glow for floating CTA */
@@ -60,11 +82,51 @@
         animation: hero-fade-in 900ms ease-out both;
     }
 
+    /* Hero caption entrance (slide in from bottom) */
+    @keyframes hero-caption-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-caption {
+        animation: hero-caption-in 600ms ease-out 300ms both;
+    }
+
     @media (prefers-reduced-motion: reduce) {
-        .animate-hero-fade-in {
+        .animate-hero-fade-in,
+        .hero-caption {
             animation: none;
         }
     }
+
+    /* Rich text editor (Quill) */
+    .ql-toolbar {
+        @apply rounded-t-lg border border-slate-300 bg-slate-50;
+    }
+
+    .ql-container {
+        @apply rounded-b-lg border border-t-0 border-slate-300 font-sans;
+    }
+
+    .ql-container.ql-snow .ql-editor {
+        @apply min-h-[150px] p-4;
+    }
+
+    .ql-toolbar.ql-snow {
+        @apply p-2;
+    }
+
+    .ql-editor p {
+        @apply mb-4;
+    }
+
+    /* Rich text editor (Quill) - styles remain in layer components */
 }
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -100,4 +162,50 @@
     --color-gold-700: #905e14;
     --color-gold-800: #754e15;
     --color-gold-900: #5b3f15;
+}
+
+/* Rich text content rendering in public views */
+.rich-text-content p {
+    margin-bottom: 1rem;
+}
+
+.rich-text-content ul,
+.rich-text-content ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.rich-text-content ul {
+    list-style-type: disc;
+}
+
+.rich-text-content ol {
+    list-style-type: decimal;
+}
+
+.rich-text-content li {
+    margin-bottom: 0.5rem;
+}
+
+.rich-text-content a {
+    color: #245ba3;
+    text-decoration: underline;
+}
+
+.rich-text-content a:hover {
+    color: #1f4e8c;
+}
+
+.rich-text-content strong,
+.rich-text-content b {
+    font-weight: 600;
+}
+
+.rich-text-content em,
+.rich-text-content i {
+    font-style: italic;
+}
+
+.rich-text-content u {
+    text-decoration: underline;
 }

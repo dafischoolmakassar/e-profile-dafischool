@@ -1,4 +1,4 @@
-<x-layout title="Pilihan Jenjang - Darul Fikri" description="Pilih jenjang pendidikan di Sekolah Islam Darul Fikri: RTK, TK, SD, SMP, dan SMA." :showFooter="true">
+<x-layout :title="'Pilihan Jenjang - ' . ($setting->school_name ?? 'Darul Fikri')" :description="'Pilih jenjang pendidikan di Sekolah Islam ' . ($setting->school_name ?? 'Darul Fikri') . ': RTK, TK, SD, SMP, dan SMA.'" :showFooter="true">
     <main>
         <div class="relative bg-primary-900">
             <a href="{{ route('home') }}"
@@ -22,7 +22,7 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-4 -mt-8 sm:-mt-10 pb-14 sm:pb-20">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 @foreach ($levels as $level)
                     <x-level-card :level="$level" />
                 @endforeach

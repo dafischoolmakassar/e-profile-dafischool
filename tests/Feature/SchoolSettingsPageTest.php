@@ -36,6 +36,7 @@ class SchoolSettingsPageTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Manager::class)
+            ->set('schoolName', 'Darul Fikri')
             ->set('phone', '(0411) 111-222')
             ->set('address', 'Jl. Baru No. 1, Makassar')
             ->set('email', 'kontak@darulfikri.sch.id')
@@ -71,6 +72,7 @@ class SchoolSettingsPageTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Manager::class)
+            ->set('schoolName', 'Darul Fikri')
             ->set('mapsEmbedUrl', '<iframe src="https://www.google.com/maps/embed?pb=test123" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>')
             ->call('save')
             ->assertHasNoErrors();
@@ -99,6 +101,7 @@ class SchoolSettingsPageTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Manager::class)
+            ->set('schoolName', 'Darul Fikri')
             ->set('image', UploadedFile::fake()->create('logo.png', 10, 'image/png'))
             ->call('save')
             ->assertHasNoErrors();
@@ -121,6 +124,7 @@ class SchoolSettingsPageTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Manager::class)
+            ->set('schoolName', 'Darul Fikri')
             ->set('image', UploadedFile::fake()->create('new-logo.png', 10, 'image/png'))
             ->call('save')
             ->assertHasNoErrors();
@@ -140,6 +144,7 @@ class SchoolSettingsPageTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Manager::class)
+            ->set('schoolName', 'Darul Fikri')
             ->call('removeExistingImage')
             ->call('save')
             ->assertHasNoErrors();

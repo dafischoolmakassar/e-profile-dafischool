@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Livewire\Admin\Activities;
+namespace App\Livewire\Admin\Testimonials;
 
 use App\Livewire\Concerns\HandlesImageUpload;
 use App\Livewire\Concerns\HandlesReordering;
-use App\Models\Activity;
-use App\Services\AcademicYearContext;
+use App\Models\Testimonial;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
@@ -24,7 +23,16 @@ class Manager extends Component
     public int|string|null $editingId = null;
 
     #[Validate('required|string|max:255')]
-    public string $activity = '';
+    public string $name = '';
+
+    #[Validate('required|string|max:255')]
+    public string $campus = '';
+
+    #[Validate('required|string|max:255')]
+    public string $batch = '';
+
+    #[Validate('required|string')]
+    public string $quote = '';
 
     #[Validate('required|integer|min:0')]
     public int $order = 0;
@@ -42,17 +50,20 @@ class Manager extends Component
 
     public function startCreate()
     {
-        $this->reset(['activity', 'order', 'image', 'existingImage', 'imageRemoved', 'editingId']);
+        $this->reset(['name', 'campus', 'batch', 'quote', 'order', 'image', 'existingImage', 'imageRemoved', 'editingId']);
         $this->editingId = 'new';
     }
 
     public function startEdit(int $id)
     {
-        $activity = $this->query()->findOrFail($id);
+        $testimonial = $this->query()->findOrFail($id);
         $this->editingId = $id;
-        $this->activity = $activity->activity;
-        $this->order = $activity->order;
-        $this->existingImage = $activity->image;
+        $this->name = $testimonial->name;
+        $this->campus = $testimonial->campus;
+        $this->batch = $testimonial->batch;
+        $this->quote = $testimonial->quote;
+        $this->order = $testimonial->order;
+        $this->existingImage = $testimonial->image;
         $this->image = null;
         $this->imageRemoved = false;
     }
@@ -61,24 +72,24 @@ class Manager extends Component
     {
         $this->validate();
 
-        if ($this->editingId === 'new' && ! $this->currentAcademicYearId()) {
-            $this->addError('activity', 'Pilih atau buat tahun ajaran terlebih dahulu.');
-            return;
-        }
-
-        $imageUrl = $this->resolveImageUrl('uploads/activities');
+        $imageUrl = $this->resolveImageUrl('uploads/testimonials');
 
         if ($this->editingId === 'new') {
-            Activity::create([
+            Testimonial::create([
                 'education_level_id' => $this->educationLevelId,
-                'academic_year_id' => $this->currentAcademicYearId(),
-                'activity' => $this->activity,
+                'name' => $this->name,
+                'campus' => $this->campus,
+                'batch' => $this->batch,
+                'quote' => $this->quote,
                 'order' => $this->order,
                 'image' => $imageUrl,
             ]);
         } else {
             $this->query()->findOrFail($this->editingId)->update([
-                'activity' => $this->activity,
+                'name' => $this->name,
+                'campus' => $this->campus,
+                'batch' => $this->batch,
+                'quote' => $this->quote,
                 'order' => $this->order,
                 'image' => $imageUrl,
             ]);
@@ -90,14 +101,14 @@ class Manager extends Component
 
     public function cancel()
     {
-        $this->reset(['activity', 'order', 'image', 'existingImage', 'imageRemoved', 'editingId']);
+        $this->reset(['name', 'campus', 'batch', 'quote', 'order', 'image', 'existingImage', 'imageRemoved', 'editingId']);
     }
 
     public function delete(int $id)
     {
-        $activity = $this->query()->findOrFail($id);
-        $this->deleteImageIfExists($activity->image);
-        $activity->delete();
+        $testimonial = $this->query()->findOrFail($id);
+        $this->deleteImageIfExists($testimonial->image);
+        $testimonial->delete();
         $this->dispatch('toast', type: 'success', message: 'Data berhasil dihapus.');
         $this->cancel();
     }
@@ -109,21 +120,13 @@ class Manager extends Component
 
     protected function query(): Builder
     {
-        return Activity::where('education_level_id', $this->educationLevelId)
-            ->where('academic_year_id', $this->currentAcademicYearId());
-    }
-
-    protected function currentAcademicYearId(): ?int
-    {
-        return app(AcademicYearContext::class)->current()?->id;
+        return Testimonial::where('education_level_id', $this->educationLevelId);
     }
 
     public function render()
     {
-        return view('livewire.admin.activities.manager', [
-            'activities' => $this->query()->orderBy('order')->get(),
-            'isBoarding' => \App\Models\EducationLevel::whereKey($this->educationLevelId)->value('slug') === 'boarding smpit-smait',
-            'isInklusi' => \App\Models\EducationLevel::whereKey($this->educationLevelId)->value('slug') === 'inklusi',
+        return view('livewire.admin.testimonials.manager', [
+            'testimonials' => $this->query()->orderBy('order')->get(),
         ]);
     }
 }

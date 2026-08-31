@@ -1,4 +1,4 @@
-<div class="max-w-3xl space-y-6" @if($level) x-data="{ tab: 'info' }" @endif>
+<div class="max-w-full space-y-6" @if($level) x-data="{ tab: 'info' }" @endif>
     <a href="{{ route('admin.education-levels.index') }}"
        class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-primary-700 transition"
        aria-label="Kembali ke daftar jenjang pendidikan">
@@ -9,13 +9,14 @@
     @if ($level)
         <div class="border-b border-slate-200">
             <nav aria-label="Bagian jenjang" role="tablist" class="flex flex-wrap gap-1 -mb-px">
-                @foreach ([
+                @foreach (array_filter([
                     'info' => 'Info Dasar',
                     'facilities' => 'Fasilitas Jenjang',
-                    'class-stats' => 'Fasilitas Kelas',
+                    'class-stats' => $level?->slug === 'inklusi' ? 'Fasilitas Terapi' : ($level?->slug === 'boarding smpit-smait' ? 'Fasilitas Boarding' : 'Fasilitas Kelas'),
                     'extracurriculars' => 'Ekstrakurikuler',
-                    'activities' => 'Aktivitas Belajar',
-                ] as $tabKey => $tabLabel)
+                    'activities' => $level?->slug === 'inklusi' ? 'Aktivitas Terapi' : ($level?->slug === 'boarding smpit-smait' ? 'Aktivitas Boarding' : 'Aktivitas Belajar'),
+                    'testimonials' => $level?->slug === 'smait' ? 'Testimoni Alumni' : null,
+                ]) as $tabKey => $tabLabel)
                     <button type="button" @click="tab = '{{ $tabKey }}'"
                             :class="tab === '{{ $tabKey }}' ? 'border-primary-600 text-primary-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'"
                             :aria-selected="tab === '{{ $tabKey }}'" role="tab"
@@ -57,9 +58,11 @@
             </div>
 
             <div>
-                <label for="program" class="block text-sm font-medium text-slate-700 mb-1">Program</label>
-                <textarea id="program" wire:model="program" rows="4"
-                          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 @error('program') border-red-500 @enderror"></textarea>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Program</label>
+                <textarea id="program" wire:model="program" class="hidden"></textarea>
+                <div x-data="richTextEditor()" wire:ignore>
+                    <div x-ref="editor"></div>
+                </div>
                 @error('program')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -117,5 +120,10 @@
         <div x-show="tab === 'activities'" x-cloak role="tabpanel">
             <livewire:admin.activities.manager :education-level-id="$level->id" :key="'activities-'.$level->id" />
         </div>
+        @if ($level?->slug === 'smait')
+            <div x-show="tab === 'testimonials'" x-cloak role="tabpanel">
+                <livewire:admin.testimonials.manager :education-level-id="$level->id" :key="'testimonials-'.$level->id" />
+            </div>
+        @endif
     @endif
 </div>

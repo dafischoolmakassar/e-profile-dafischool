@@ -1,7 +1,7 @@
 <div class="space-y-6">
     <div>
-        <h2 class="text-2xl font-bold text-slate-900">Selamat datang, {{ auth()->user()->name }} 👋</h2>
-        <p class="text-slate-500 mt-1">Ringkasan konten situs Darul Fikri saat ini.</p>
+        <h2 class="text-2xl font-bold text-slate-900">Selamat datang, {{ auth()->user()->name }}</h2>
+        <p class="text-slate-500 mt-1">Ringkasan konten situs {{ \App\Models\SchoolSetting::current()->school_name ?? 'Darul Fikri' }} saat ini.</p>
     </div>
 
     <!-- Stat cards -->
@@ -66,7 +66,9 @@
                 </a>
             @empty
                 <div class="p-12 text-center">
-                    <p class="text-4xl mb-3" aria-hidden="true">🏫</p>
+                    <div class="flex justify-center mb-3">
+                        <x-admin.icon name="academic-cap" class="w-10 h-10 text-slate-300" />
+                    </div>
                     <h3 class="text-sm font-medium text-slate-900">Belum ada jenjang pendidikan</h3>
                     <a href="{{ route('admin.education-levels.create') }}"
                        class="inline-block mt-4 px-4 py-2 bg-primary-700 hover:bg-primary-800 text-white font-semibold rounded-lg transition">

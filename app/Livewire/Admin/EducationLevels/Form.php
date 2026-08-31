@@ -12,6 +12,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Mews\Purifier\Facades\Purifier;
 
 #[Layout('components.admin.layout')]
 class Form extends Component
@@ -64,6 +65,8 @@ class Form extends Component
 
     public function save()
     {
+        $this->slug = trim($this->slug);
+
         $this->validate([
             'name' => 'required|string|max:255',
             'slug' => [
@@ -80,13 +83,20 @@ class Form extends Component
         ]);
 
         $imageUrl = $this->resolveImageUrl('uploads/education-levels');
+        $sanitizedProgram = Purifier::clean($this->program, 'program_editor');
+
+        // Convert empty <p> tags (with or without <br>) to <br> for line breaks
+        $sanitizedProgram = preg_replace('/<p>\s*(?:<br\s*\/?>\s*)?<\/p>/i', '<br>', $sanitizedProgram);
+
+        // Remove leading/trailing <br> tags
+        $sanitizedProgram = preg_replace('/^<br\s*\/?>\s*|<br\s*\/?>\s*$/i', '', $sanitizedProgram);
 
         if ($this->level) {
             $this->level->update([
                 'name' => $this->name,
                 'slug' => $this->slug,
                 'tagline' => $this->tagline,
-                'program' => $this->program,
+                'program' => $sanitizedProgram,
                 'order' => $this->order,
                 'whatsapp_number' => $this->whatsappNumber,
                 'image' => $imageUrl,
@@ -102,7 +112,7 @@ class Form extends Component
             'name' => $this->name,
             'slug' => $this->slug,
             'tagline' => $this->tagline,
-            'program' => $this->program,
+            'program' => $sanitizedProgram,
             'order' => $this->order,
             'whatsapp_number' => $this->whatsappNumber,
             'image' => $imageUrl,

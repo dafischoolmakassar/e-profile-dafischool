@@ -49,7 +49,7 @@
         <section id="program" class="max-w-6xl mx-auto px-4 mt-10 scroll-mt-20">
             <x-section-heading eyebrow="Kurikulum & Pendekatan" title="Program" />
             <div class="rounded-xl bg-white shadow-sm ring-1 ring-slate-900/5 p-5 sm:p-6">
-                <p class="text-slate-600 leading-relaxed">{{ $level->program }}</p>
+                <div class="rich-text-content text-slate-600 leading-relaxed">{!! $level->program !!}</div>
             </div>
         </section>
 
@@ -62,8 +62,8 @@
         </x-level-section>
 
         <!-- Class Facilities -->
-        <x-level-section eyebrow="Sarana Belajar" title="Fasilitas Kelas" :items="$level->classStats"
-                          empty-message="Fasilitas kelas belum ditambahkan.">
+        <x-level-section eyebrow="{{ $isInklusi ? 'Sarana Terapi' : ($isBoarding ? 'Sarana Boarding' : 'Sarana Belajar') }}" title="{{ $isInklusi ? 'Fasilitas Terapi' : ($isBoarding ? 'Fasilitas Boarding' : 'Fasilitas Kelas') }}" :items="$level->classStats"
+                          empty-message="{{ $isInklusi ? 'Fasilitas terapi belum ditambahkan.' : ($isBoarding ? 'Fasilitas boarding belum ditambahkan.' : 'Fasilitas kelas belum ditambahkan.') }}">
             @foreach ($level->classStats as $stat)
                 <x-image-card :item="$stat" />
             @endforeach
@@ -80,17 +80,37 @@
         @endif
 
         <!-- Activities -->
-        <x-level-section eyebrow="Keseharian di Sekolah" title="Aktivitas Belajar" :items="$level->activities"
-                          empty-message="Aktivitas belajar belum ditambahkan.">
+        <x-level-section eyebrow="{{ $isInklusi ? 'Kegiatan Terapi' : ($isBoarding ? 'Keseharian di Asrama' : 'Keseharian di Sekolah') }}" title="{{ $isInklusi ? 'Aktivitas Terapi' : ($isBoarding ? 'Aktivitas Boarding' : 'Aktivitas Belajar') }}" :items="$level->activities"
+                          empty-message="{{ $isInklusi ? 'Aktivitas terapi belum ditambahkan.' : ($isBoarding ? 'Aktivitas boarding belum ditambahkan.' : 'Aktivitas belajar belum ditambahkan.') }}">
             @foreach ($level->activities as $activity)
                 <x-activity-card :activity="$activity" />
             @endforeach
         </x-level-section>
 
+        <!-- Testimonials (hanya unit SMAIT) -->
+        @if ($isSmait && $level->testimonials->isNotEmpty())
+            <section id="testimoni-alumni" class="mt-12 scroll-mt-20">
+                <div class="border-y border-slate-100 py-14 sm:py-16">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <x-section-heading eyebrow="Kata Mereka" title="Testimoni Alumni" />
+                        <div class="swiper testimonial-swiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($level->testimonials as $testimonial)
+                                    <div class="swiper-slide h-full">
+                                        <x-testimonial-card :testimonial="$testimonial" />
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="testimonial-swiper-pagination swiper-pagination !static mt-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+
         <!-- CTA Daftar -->
         <section class="max-w-6xl mx-auto px-4 mt-14 mb-16 text-center">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-950 px-6 py-12 sm:py-16 shadow-xl">
-                <span class="inline-block text-gold-300 text-3xl mb-3">✦</span>
                 <h2 class="font-display text-white text-xl sm:text-3xl font-bold mb-3">Tertarik Bergabung dengan Darul Fikri?</h2>
                 <p class="text-primary-100 mb-7 max-w-lg mx-auto">
                     Daftarkan putra-putri Anda sekarang di jenjang {{ $level->name }}.

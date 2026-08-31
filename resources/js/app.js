@@ -3,9 +3,52 @@
 // where no live component remains to dispatch from) an inline bootstrap script
 // reading the flashed session message on page load. Registered on 'alpine:init'
 // since Alpine itself is injected by Livewire, not bundled here.
+
+// Quill CSS - import at top level so it's always available
+import 'quill/dist/quill.snow.css';
+
 let toastId = 0;
 
 document.addEventListener('alpine:init', () => {
+    Alpine.data('richTextEditor', () => ({
+        editor: null,
+        async init() {
+            const { default: Quill } = await import('quill');
+
+            const textarea = document.getElementById('program');
+            this.editor = new Quill(this.$refs.editor, {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        ['link'],
+                        ['clean'],
+                    ],
+                },
+            });
+
+            // Load initial content: set editor DOM directly, then sync to textarea
+            if (textarea.value) {
+                this.editor.root.innerHTML = textarea.value;
+            }
+
+            // Sync editor content to textarea on any change
+            this.editor.on('text-change', () => {
+                textarea.value = this.editor.root.innerHTML;
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+            });
+
+            // Also sync on form submit to ensure latest content
+            const form = this.editor.root.closest('form');
+            if (form) {
+                form.addEventListener('submit', () => {
+                    textarea.value = this.editor.root.innerHTML;
+                });
+            }
+        },
+    }));
+
     Alpine.store('toast', {
         items: [],
         push(type, message) {
@@ -66,6 +109,9 @@ document.addEventListener('alpine:init', () => {
 document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.hero-swiper')) {
         import('./hero-swiper.js');
+    }
+    if (document.querySelector('.testimonial-swiper')) {
+        import('./testimonial-swiper.js');
     }
 });
 
