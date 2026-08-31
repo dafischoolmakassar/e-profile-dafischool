@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicYear;
 use App\Models\EducationLevel;
+use App\Models\SchoolSetting;
 
 class EducationLevelController extends Controller
 {
     public function index()
     {
         $levels = EducationLevel::orderBy('order')->get();
-        return view('levels.index', compact('levels'));
+        $setting = SchoolSetting::current();
+        return view('levels.index', compact('levels', 'setting'));
     }
 
     public function show(EducationLevel $educationLevel)
@@ -38,6 +40,7 @@ class EducationLevelController extends Controller
         return view('levels.show', [
             'level' => $educationLevel,
             'allLevels' => $levels,
+            'setting' => SchoolSetting::current(),
             'isBoarding' => $isBoarding,
             'isInklusi' => $isInklusi,
             'isSmait' => $isSmait,

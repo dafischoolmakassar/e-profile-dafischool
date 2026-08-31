@@ -22,6 +22,6 @@
         </div>
     @endif
     <div class="p-3">
-        <p class="text-slate-700 text-sm font-medium">{{ $activity->activity }}</p>
+        <p class="text-slate-700 text-body-sm font-medium">{{ $activity->activity }}</p>
     </div>
 </div>

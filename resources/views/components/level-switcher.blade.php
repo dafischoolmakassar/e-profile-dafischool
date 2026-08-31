@@ -6,7 +6,7 @@
         <a href="{{ route('levels.show', $level->slug) }}"
            title="{{ $level->name }}"
            @if ($isActive) aria-current="page" @endif
-           class="shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition
+           class="shrink-0 px-4 py-1.5 rounded-full text-body-sm font-bold transition
                   {{ $isActive
                       ? 'bg-primary-700 text-white shadow-sm'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-primary-700' }}">

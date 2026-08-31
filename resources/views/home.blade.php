@@ -2,23 +2,27 @@
     <main class="relative">
         <h1 class="sr-only">{{ $setting->school_name }} - Sekolah Islam Terpadu</h1>
 
-        <!-- Unified elegant top bar: mobile gutter 16px (container-like), desktop tetap full-bleed -->
-        <div class="fixed inset-x-0 top-0 z-40 flex items-center justify-between gap-2 sm:gap-3 px-4 sm:px-6 pt-[max(0.75rem,env(safe-area-inset-top))] sm:pt-6 pointer-events-none">
-            <div class="pointer-events-auto inline-flex items-center gap-2 sm:gap-2.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 pl-1.5 sm:pl-2 pr-3 sm:pr-4 py-1.5 sm:py-2 shadow-md animate-hero-fade-in min-w-0 flex-1 max-w-[calc(100vw-32px-150px)] sm:max-w-[320px] sm:flex-none">
-                @if ($setting->logo)
-                    <img id="hero-logo" src="{{ $setting->logo }}" alt="Logo {{ $setting->school_name }}"
-                         class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover bg-white shadow-sm shrink-0">
-                @endif
-                <span class="text-white font-display font-semibold text-[12.5px] sm:text-[15px] leading-none truncate min-w-0 uppercase tracking-[0.04em]">{{ $setting->school_name }}</span>
-            </div>
+        <!-- Masthead toolbar: full-width gradient scrim (bukan pill kaca terapung), wordmark + text-link -->
+        <div class="fixed inset-x-0 top-0 z-40 pointer-events-none bg-gradient-to-b from-black/50 via-black/15 to-transparent">
+            <div class="flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 sm:pt-6 sm:pb-6 border-b border-white/10">
+                <div class="pointer-events-auto flex items-center gap-2.5 sm:gap-3 min-w-0 animate-hero-fade-in">
+                    @if ($setting->logo)
+                        <img id="hero-logo" src="{{ $setting->logo }}" alt="Logo {{ $setting->school_name }}"
+                             class="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover bg-white shrink-0 drop-shadow">
+                        <span class="hidden sm:block w-px h-5 bg-white/25 shrink-0" aria-hidden="true"></span>
+                    @endif
+                    <span class="text-white font-display font-semibold text-caption sm:text-body-sm leading-none truncate min-w-0 uppercase tracking-[0.08em] drop-shadow-sm">{{ $setting->school_name }}</span>
+                </div>
 
-            <a href="{{ route('levels.index') }}" id="hero-next-btn"
-               class="pointer-events-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 shrink-0 min-h-[36px] sm:min-h-[42px] pl-3.5 pr-3 sm:pl-5 sm:pr-4 py-2 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white hover:bg-black/45 shadow-md active:scale-[0.97] font-semibold text-[13px] sm:text-sm whitespace-nowrap transition animate-hero-fade-in uppercase tracking-[0.04em]">
-                Lihat Jenjang
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-            </a>
+                <a href="{{ route('levels.index') }}"
+                   class="pointer-events-auto group relative inline-flex items-center gap-1.5 shrink-0 min-h-[44px] text-white font-semibold text-caption sm:text-body-sm uppercase tracking-[0.08em] whitespace-nowrap transition animate-hero-fade-in">
+                    Lihat Jenjang
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0 text-gold-300 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <span class="absolute left-0 -bottom-1 h-px w-full bg-gold-400 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></span>
+                </a>
+            </div>
         </div>
 
         <div class="swiper hero-swiper h-screen w-full">

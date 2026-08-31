@@ -73,18 +73,13 @@
     }
 
     .swiper-slide .testimonial-card {
-        transform: scale(0.92);
-        opacity: 0.65;
+        transform: scale(0.96);
+        opacity: 0.75;
     }
 
     .swiper-slide-active .testimonial-card {
         transform: scale(1);
         opacity: 1;
-    }
-
-    /* Soft shadow with gold glow for floating CTA */
-    .shadow-glow {
-        box-shadow: 0 8px 24px -4px rgba(218, 140, 22, 0.55), 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
     /* Hero overlay entrance (logo, headline, tagline) */
@@ -148,6 +143,52 @@
     }
 
     /* Rich text editor (Quill) - styles remain in layer components */
+
+    /* Public-site type scale — golden ratio (phi≈1.618), half-step sqrt(phi)≈1.272
+       so adjacent steps don't jump too hard. Base 16px. Scoped as explicit classes
+       (not an override of Tailwind's global --text-* tokens) because app.css is the
+       one CSS bundle shared with the admin panel — overriding the tokens there would
+       silently resize the admin dashboard too. Small sizes are floored below the
+       literal ratio (16/phi≈9.9px) since that's under a readable minimum. */
+    .text-caption {
+        font-size: 0.8125rem; /* 13px */
+        line-height: 1.4;
+    }
+
+    .text-body-sm {
+        font-size: 0.875rem; /* 14px */
+        line-height: 1.55;
+    }
+
+    .text-body {
+        font-size: 1rem; /* 16px */
+        line-height: 1.6;
+    }
+
+    .text-lead {
+        font-size: 1.25rem; /* 20px */
+        line-height: 1.5;
+    }
+
+    .text-h4 {
+        font-size: 1.618rem; /* ~26px */
+        line-height: 1.3;
+    }
+
+    .text-h3 {
+        font-size: 2.058rem; /* ~33px */
+        line-height: 1.2;
+    }
+
+    .text-h2 {
+        font-size: 2.618rem; /* ~42px */
+        line-height: 1.15;
+    }
+
+    .text-display {
+        font-size: 4.236rem; /* ~68px */
+        line-height: 1.1;
+    }
 }
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

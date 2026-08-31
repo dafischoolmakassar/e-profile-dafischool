@@ -37,7 +37,7 @@
 
                 <div>
                     <label class="text-sm font-medium text-slate-700">Kata-kata Testimoni</label>
-                    <textarea wire:model="quote" rows="3" placeholder="Alhamdulillah saya belajar banyak di SIT Darul Fikri Makassar..."
+                    <textarea wire:model="quote" rows="3" placeholder="Alhamdulillah saya belajar banyak di {{ \App\Models\SchoolSetting::current()->school_name }}..."
                               class="w-full mt-1 px-3 py-2 border border-slate-300 rounded-lg text-sm @error('quote') border-red-500 @enderror"></textarea>
                     @error('quote')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                 </div>

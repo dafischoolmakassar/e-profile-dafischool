@@ -13,10 +13,10 @@
 @endphp
 
 <footer class="bg-primary-950 text-primary-100">
-    <div class="max-w-6xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         <div class="lg:col-span-1">
-            <span class="font-display text-white text-xl font-extrabold">{{ $setting->school_name }}</span>
-            <p class="mt-3 text-sm text-primary-200 leading-relaxed">
+            <span class="font-display text-white text-h4 font-extrabold">{{ $setting->school_name }}</span>
+            <p class="mt-3 text-body-sm text-primary-200 leading-relaxed">
                 Sekolah Islam Terpadu yang menyatukan akademik dan nilai-nilai Islami,
                 dari jenjang RTK/KB hingga SMA.
             </p>
@@ -57,16 +57,16 @@
         </div>
 
         <nav aria-label="Tautan cepat">
-            <h2 class="font-display text-white text-sm font-bold uppercase tracking-wider mb-4">Tautan</h2>
-            <ul class="space-y-2.5 text-sm">
+            <h2 class="font-display text-white text-caption font-bold uppercase tracking-wider mb-4">Tautan</h2>
+            <ul class="space-y-2.5 text-body-sm">
                 <li><a href="{{ route('home') }}" class="hover:text-gold-300 transition">Beranda</a></li>
                 <li><a href="{{ route('levels.index') }}" class="hover:text-gold-300 transition">Jenjang Pendidikan</a></li>
             </ul>
         </nav>
 
         <div>
-            <h2 class="font-display text-white text-sm font-bold uppercase tracking-wider mb-4">Kontak</h2>
-            <ul class="space-y-3 text-sm">
+            <h2 class="font-display text-white text-caption font-bold uppercase tracking-wider mb-4">Kontak</h2>
+            <ul class="space-y-3 text-body-sm">
                 <li class="flex items-start gap-2.5">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 shrink-0 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
@@ -90,7 +90,7 @@
         </div>
 
         <div class="lg:col-span-1">
-            <h2 class="font-display text-white text-sm font-bold uppercase tracking-wider mb-4">Lokasi</h2>
+            <h2 class="font-display text-white text-caption font-bold uppercase tracking-wider mb-4">Lokasi</h2>
             <div class="rounded-xl overflow-hidden border border-white/10 aspect-video">
                 <iframe
                     src="{{ $setting->maps_embed_url }}"
@@ -105,7 +105,7 @@
     </div>
 
     <div class="border-t border-white/10">
-        <div class="max-w-6xl mx-auto px-4 py-5 text-xs text-primary-300 text-center">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 text-caption text-primary-300 text-center">
             &copy; {{ now()->year }} {{ $setting->school_name }}. Seluruh hak cipta dilindungi.
         </div>
     </div>

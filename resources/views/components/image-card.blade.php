@@ -22,6 +22,6 @@
         </div>
     @endif
     <div class="p-3">
-        <p class="font-semibold text-slate-700 text-sm">{{ $item->name }}</p>
+        <p class="font-semibold text-slate-700 text-body-sm">{{ $item->name }}</p>
     </div>
 </div>
