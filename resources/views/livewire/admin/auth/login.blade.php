@@ -2,9 +2,14 @@
     <div class="w-full max-w-md">
         <div class="bg-white rounded-2xl shadow-xl p-8 space-y-6">
             <div class="text-center">
-                <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gold-500 text-primary-950 font-display font-bold text-lg mb-4">DF</span>
+                @if ($setting->logo)
+                    <img src="{{ $setting->logo }}" alt="Logo {{ $setting->school_name }}"
+                         class="inline-block w-12 h-12 object-contain mb-4">
+                @else
+                    <span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gold-500 text-primary-950 font-display font-bold text-lg mb-4">DF</span>
+                @endif
                 <h1 class="text-2xl font-bold text-slate-900">{{ $setting->school_name ?? 'Darul Fikri' }}</h1>
-                <p class="text-slate-500 mt-1 text-sm">Masuk ke Admin Panel</p>
+                <p class="text-slate-500 mt-1 text-sm">Masuk ke panel admin untuk mengelola konten sekolah</p>
             </div>
 
             <form wire:submit="login" class="space-y-4">
@@ -13,7 +18,7 @@
                     <input type="email" id="email" wire:model="email" autocomplete="username" required
                            @error('email') aria-invalid="true" aria-describedby="email-error" @enderror
                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('email') border-red-500 @enderror"
-                           placeholder="admin@example.com">
+                           placeholder="cth: admin@example.com">
                     @error('email')
                         <p id="email-error" role="alert" class="mt-1.5 text-sm text-red-600">{{ $message }}</p>
                     @enderror

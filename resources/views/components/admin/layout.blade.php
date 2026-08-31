@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -25,8 +25,14 @@
         <!-- Sidebar -->
         <div class="w-64 shrink-0 bg-primary-950 flex flex-col fixed inset-y-0 left-0 z-30 transition-transform -translate-x-full lg:translate-x-0"
              :class="sidebarOpen && '!translate-x-0'">
+            @php $sidebarSetting = \App\Models\SchoolSetting::current(); @endphp
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 px-6 h-16 border-b border-white/10">
-                <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-gold-500 text-primary-950 font-display font-bold text-sm shrink-0">DF</span>
+                @if ($sidebarSetting->logo)
+                    <img src="{{ $sidebarSetting->logo }}" alt="Logo {{ $sidebarSetting->school_name }}"
+                         class="w-8 h-8 object-contain shrink-0">
+                @else
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-gold-500 text-primary-950 font-display font-bold text-sm shrink-0">DF</span>
+                @endif
                 <span class="min-w-0">
                     <span class="block font-display font-bold text-white text-sm truncate">{{ config('app.name') }}</span>
                     <span class="block text-[11px] text-primary-300 truncate">Admin Panel</span>

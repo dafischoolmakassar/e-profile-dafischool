@@ -22,6 +22,8 @@
                 'modelName' => 'image',
                 'label' => 'Logo',
                 'existingImage' => $existingImage,
+                'accept' => 'image/png',
+                'hint' => 'Format PNG, maks 2MB',
             ])
         </div>
 

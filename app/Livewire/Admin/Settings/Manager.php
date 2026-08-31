@@ -75,7 +75,7 @@ class Manager extends Component
             'instagramUrl' => 'nullable|url|max:255',
             'facebookUrl' => 'nullable|url|max:255',
             'youtubeUrl' => 'nullable|url|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|image|mimes:png|max:2048',
         ]);
 
         $logoUrl = $this->resolveImageUrl('uploads/school-settings');
