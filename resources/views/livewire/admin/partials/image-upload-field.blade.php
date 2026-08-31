@@ -1,4 +1,4 @@
-@props(['modelName' => 'image', 'label' => 'Gambar', 'existingImage' => null])
+@props(['modelName' => 'image', 'label' => 'Gambar', 'existingImage' => null, 'removeMethod' => 'removeExistingImage'])
 
 @php
     $inputId = \Illuminate\Support\Str::slug($modelName) . '-' . \Illuminate\Support\Str::random(6);
@@ -11,7 +11,7 @@
         <button type="button"
                 x-show="(preview || existing) && !removed"
                 x-on:click="preview = null; existing = null; removed = true"
-                wire:click="removeExistingImage"
+                wire:click="{{ $removeMethod }}"
                 class="text-xs font-medium text-red-600 hover:text-red-700">
             Hapus gambar
         </button>

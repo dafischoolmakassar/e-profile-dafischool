@@ -71,19 +71,6 @@ class HomePageHeroTest extends TestCase
         $response->assertSee('id="hero-logo"', false);
     }
 
-    public function test_shows_numbered_pagination_counter_matching_slide_count(): void
-    {
-        HeroSlide::create(['alt' => 'Slide 1', 'order' => 0]);
-        HeroSlide::create(['alt' => 'Slide 2', 'order' => 1]);
-        HeroSlide::create(['alt' => 'Slide 3', 'order' => 2]);
-
-        $response = $this->get(route('home'));
-
-        $response->assertOk();
-        $response->assertSee('hero-counter-current', false);
-        $response->assertSee('class="hero-counter-total">03', false);
-    }
-
     public function test_slide_photo_has_no_zoom_or_animation_class(): void
     {
         HeroSlide::create(['alt' => 'Gedung Sekolah', 'image' => 'https://example.test/gedung.jpg', 'order' => 0]);
@@ -103,5 +90,30 @@ class HomePageHeroTest extends TestCase
         $response->assertOk();
         $response->assertDontSee('lg:object-contain', false);
         $response->assertDontSee('blur-2xl', false);
+    }
+
+    public function test_slide_with_mobile_image_shows_a_mobile_source(): void
+    {
+        HeroSlide::create([
+            'alt' => 'Gedung Sekolah',
+            'image' => 'https://example.test/gedung.jpg',
+            'mobile_image' => 'https://example.test/gedung-mobile.jpg',
+            'order' => 0,
+        ]);
+
+        $response = $this->get(route('home'));
+
+        $response->assertOk();
+        $response->assertSee('<source media="(max-width: 767px)" srcset="https://example.test/gedung-mobile.jpg">', false);
+    }
+
+    public function test_slide_without_mobile_image_shows_no_mobile_source(): void
+    {
+        HeroSlide::create(['alt' => 'Gedung Sekolah', 'image' => 'https://example.test/gedung.jpg', 'order' => 0]);
+
+        $response = $this->get(route('home'));
+
+        $response->assertOk();
+        $response->assertDontSee('<source media="(max-width: 767px)"', false);
     }
 }

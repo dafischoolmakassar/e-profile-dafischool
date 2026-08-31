@@ -21,8 +21,15 @@
 
             @include('livewire.admin.partials.image-upload-field', [
                 'modelName' => 'image',
-                'label' => 'Gambar',
+                'label' => 'Gambar (landscape)',
                 'existingImage' => null,
+            ])
+
+            @include('livewire.admin.partials.image-upload-field', [
+                'modelName' => 'mobileImage',
+                'label' => 'Gambar khusus HP (opsional)',
+                'existingImage' => null,
+                'removeMethod' => 'removeMobileImage',
             ])
 
             <div class="flex gap-2 pt-1">
@@ -58,8 +65,15 @@
 
                         @include('livewire.admin.partials.image-upload-field', [
                             'modelName' => 'image',
-                            'label' => 'Ganti Gambar',
+                            'label' => 'Ganti Gambar (landscape)',
                             'existingImage' => $existingImage,
+                        ])
+
+                        @include('livewire.admin.partials.image-upload-field', [
+                            'modelName' => 'mobileImage',
+                            'label' => 'Gambar khusus HP (opsional)',
+                            'existingImage' => $existingMobileImage,
+                            'removeMethod' => 'removeMobileImage',
                         ])
 
                         <div class="flex gap-2 pt-1">
