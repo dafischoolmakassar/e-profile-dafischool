@@ -49,7 +49,8 @@ class EducationLevel extends Model
     public function getWhatsappUrlAttribute(): string
     {
         $waNumber = $this->whatsapp_number ?: SchoolSetting::current()->whatsapp_number;
-        $message = "Assalamu'alaikum, saya ingin mendaftarkan anak saya di jenjang {$this->name} Darul Fikri.";
+        $schoolName = SchoolSetting::current()->school_name;
+        $message = "Assalamu'alaikum, saya ingin mendaftarkan anak saya di jenjang {$this->name} {$schoolName}.";
         return "https://wa.me/{$waNumber}?text=" . urlencode($message);
     }
 }

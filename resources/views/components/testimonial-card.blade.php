@@ -1,9 +1,9 @@
 @props(['testimonial'])
 
-<article class="testimonial-card h-full flex flex-col bg-white rounded-2xl shadow-lg ring-1 ring-slate-900/5 px-7 py-8 sm:px-8">
+<article class="testimonial-card h-full flex flex-col bg-white rounded-2xl shadow-lg ring-1 ring-slate-900/5 px-6 py-8 sm:px-8">
     <span class="font-serif text-5xl leading-none text-gold-300 select-none text-center" aria-hidden="true">&ldquo;</span>
 
-    <blockquote class="mt-3 font-serif font-medium text-slate-800 text-lg sm:text-xl leading-snug text-center flex-1 flex flex-col justify-center">
+    <blockquote class="mt-3 font-serif font-medium text-slate-800 text-lead leading-snug text-center flex-1 flex flex-col justify-center">
         <span>{{ $testimonial->quote }}</span>
     </blockquote>
 
@@ -17,9 +17,9 @@
             @endif
         </div>
         <div class="min-w-0">
-            <p class="font-display text-sm font-semibold text-slate-900 truncate">{{ $testimonial->name }}</p>
-            <p class="text-xs text-slate-400 truncate">{{ $testimonial->campus }}</p>
-            <p class="text-xs font-semibold tracking-wide text-gold-600">Angkatan {{ $testimonial->batch }}</p>
+            <p class="font-display text-body-sm font-semibold text-slate-900 truncate">{{ $testimonial->name }}</p>
+            <p class="text-caption text-slate-400 truncate">{{ $testimonial->campus }}</p>
+            <p class="text-caption font-semibold tracking-wide text-gold-600">Angkatan {{ $testimonial->batch }}</p>
         </div>
     </footer>
 </article>

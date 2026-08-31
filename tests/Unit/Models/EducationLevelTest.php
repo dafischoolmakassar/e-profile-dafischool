@@ -13,14 +13,14 @@ class EducationLevelTest extends TestCase
 
     public function test_whatsapp_url_contains_encoded_message_with_level_name(): void
     {
-        SchoolSetting::current()->update(['whatsapp_number' => '6281111111111']);
+        SchoolSetting::current()->update(['whatsapp_number' => '6281111111111', 'school_name' => 'SIT Darul Fikri']);
 
         $level = new EducationLevel(['name' => 'SD']);
 
         $url = $level->whatsapp_url;
 
         $this->assertStringStartsWith('https://wa.me/6281111111111?text=', $url);
-        $this->assertStringContainsString(urlencode('jenjang SD Darul Fikri'), $url);
+        $this->assertStringContainsString(urlencode('jenjang SD SIT Darul Fikri'), $url);
     }
 
     public function test_route_binding_resolves_slug_case_insensitively(): void

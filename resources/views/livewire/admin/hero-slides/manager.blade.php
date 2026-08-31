@@ -14,7 +14,7 @@
         <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
             <div>
                 <label class="text-sm font-medium text-slate-700">Alt Text (deskripsi gambar)</label>
-                <input type="text" wire:model="alt" placeholder="Gedung Sekolah Darul Fikri"
+                <input type="text" wire:model="alt" placeholder="Gedung Sekolah {{ \App\Models\SchoolSetting::current()->school_name }}"
                        class="w-full mt-1 px-3 py-2 border border-slate-300 rounded-lg text-sm @error('alt') border-red-500 @enderror">
                 @error('alt')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
             </div>
