@@ -4,11 +4,11 @@
 
         <!-- Masthead toolbar: full-width gradient scrim (bukan pill kaca terapung), wordmark + text-link -->
         <div class="fixed inset-x-0 top-0 z-40 pointer-events-none bg-gradient-to-b from-black/50 via-black/15 to-transparent">
-            <div class="flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 sm:pt-6 sm:pb-6 border-b border-white/10">
+            <div class="flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 sm:pt-6 sm:pb-6">
                 <div class="pointer-events-auto flex items-center gap-2.5 sm:gap-3 min-w-0 animate-hero-fade-in">
                     @if ($setting->logo)
                         <img id="hero-logo" src="{{ $setting->logo }}" alt="Logo {{ $setting->school_name }}"
-                             class="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover bg-white shrink-0 drop-shadow">
+                             class="w-7 h-7 sm:w-9 sm:h-9 object-contain shrink-0 drop-shadow">
                         <span class="hidden sm:block w-px h-5 bg-white/25 shrink-0" aria-hidden="true"></span>
                     @endif
                     <span class="text-white font-display font-semibold text-caption sm:text-body-sm leading-none truncate min-w-0 uppercase tracking-[0.08em] drop-shadow-sm">{{ $setting->school_name }}</span>

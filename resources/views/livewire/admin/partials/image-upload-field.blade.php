@@ -1,4 +1,11 @@
-@props(['modelName' => 'image', 'label' => 'Gambar', 'existingImage' => null, 'removeMethod' => 'removeExistingImage'])
+@props([
+    'modelName' => 'image',
+    'label' => 'Gambar',
+    'existingImage' => null,
+    'removeMethod' => 'removeExistingImage',
+    'accept' => 'image/*',
+    'hint' => 'JPG, PNG, atau WEBP, maks 2MB',
+])
 
 @php
     $inputId = \Illuminate\Support\Str::slug($modelName) . '-' . \Illuminate\Support\Str::random(6);
@@ -19,7 +26,7 @@
 
     <div class="relative rounded-lg border-2 border-dashed transition overflow-hidden"
          :class="dragging ? 'border-primary-400 bg-primary-50' : 'border-slate-300 hover:border-primary-300'">
-        <input type="file" id="{{ $inputId }}" wire:model="{{ $modelName }}" accept="image/*"
+        <input type="file" id="{{ $inputId }}" wire:model="{{ $modelName }}" accept="{{ $accept }}"
                @error($modelName) aria-invalid="true" aria-describedby="{{ $errorId }}" @enderror
                @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : preview; removed = false"
                @dragover.prevent="dragging = true" @dragleave.prevent="dragging = false" @drop="dragging = false"
@@ -35,7 +42,7 @@
             <div class="py-8 text-center pointer-events-none">
                 <x-admin.icon name="upload" class="w-7 h-7 mx-auto text-slate-400" />
                 <p class="text-sm text-slate-500 mt-2">Klik atau seret gambar ke sini</p>
-                <p class="text-xs text-slate-400 mt-0.5">JPG, PNG, atau WEBP, maks 2MB</p>
+                <p class="text-xs text-slate-400 mt-0.5">{{ $hint }}</p>
             </div>
         </template>
     </div>

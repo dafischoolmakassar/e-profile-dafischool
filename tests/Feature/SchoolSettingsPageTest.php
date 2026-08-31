@@ -164,4 +164,17 @@ class SchoolSettingsPageTest extends TestCase
             ->call('save')
             ->assertHasErrors(['image']);
     }
+
+    public function test_rejects_a_non_png_image_as_logo(): void
+    {
+        Storage::fake('public');
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Manager::class)
+            ->set('schoolName', 'Darul Fikri')
+            ->set('image', UploadedFile::fake()->image('logo.jpg'))
+            ->call('save')
+            ->assertHasErrors(['image']);
+    }
 }

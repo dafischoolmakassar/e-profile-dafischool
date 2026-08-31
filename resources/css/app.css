@@ -195,10 +195,11 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    /* Fonts — Sora (tegas, geometric, kuat) untuk display/headings, Jakarta untuk body */
+    /* Font tunggal (Plus Jakarta Sans) untuk seluruh site — display & body sama */
     --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
 
     /* Primary color (blue) */
     --color-primary-50: #f3f7fc;

@@ -56,7 +56,7 @@ class Login extends Component
 
         RateLimiter::hit($throttleKey, 60);
         RateLimiter::hit($ipThrottleKey, 60);
-        $this->addError('email', 'Kredensial tidak valid.');
+        $this->addError('email', 'Email atau password yang Anda masukkan salah.');
     }
 
     public function render()
